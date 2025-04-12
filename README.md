@@ -1,2 +1,3 @@
 # Other-BASICs
-Programs in other flavours of BASIC written by other programmers.
+
+This folder contains programs in other dialects of BASIC written by other programmers.
