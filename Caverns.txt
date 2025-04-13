@@ -1,0 +1,281 @@
+0 Rem Caverns
+1 Rem by R Vonk (c) 2000
+2 Rem Ported to QB64 by Kevin Martell
+3 Rem
+4 Screen 0: _FullScreen: Randomize Timer
+5 GoTo 1550
+10 Color , 6
+20 cv = 1: h = 100: sc = 0: l = 1
+30 Cls: Color 14: Print "You are in cavern"; cv; "-"; l
+40 Print: Print "Health:"; h; "%"
+50 Print: Print "Your score is"; sc
+60 Print: Print: Print
+70 If Rnd > .7 Then 200
+80 t = Int(Rnd * 4 + 2)
+81 d1 = Int(Rnd * t + 1)
+90 Print "You see"; t; "tunnels, all of them dark and"
+100 Print "possibly dangerous. Which one do you"
+110 Print "want to take";
+120 Input c
+130 If c < 1 Or c > t Then 120
+140 If c <> d1 Then 170
+150 Print: Print "You fall down a steep decline and injure"
+160 Print "yourself.": h = h - Int(Rnd * 3 + 2): l = l + 1
+161 If h <= 0 Then 1400
+162 GoTo 200
+170 Print: Print "You make your way through the tunnel"
+180 Print "safely."
+190 l = l + 1
+200 If Rnd > .3 Then 410
+210 Print: Print "Watch out!"
+220 Print
+230 m = Int(Rnd * 4 + 1)
+240 If m = 1 Then m$ = "gremlin"
+250 If m = 2 Then m$ = "mutant bat"
+260 If m = 3 Then m$ = "serpent"
+270 If m = 4 Then m$ = "ghoul"
+280 Print: Print "A "; m$; " guards this tunnel."
+290 Print: Print "Do you wish to fight or retreat"
+300 Input "(F or R)"; c$
+310 If c$ = "f" Then 340
+320 If c$ <> "r" Then 300
+330 If Rnd < .2 Then Print: Print "The "; m$; " stops you.": GoTo 340
+331 Print: Print "You manage to escape.": GoTo 410
+340 If Rnd > .4 Then 390
+350 Print: Print "*Ugh* you've been defeated, and the"
+360 Print m$; " has left you with a severe"
+370 Print "wound.": h = h - Int(Rnd * 5 + l)
+380 If h <= 0 Then 1400
+381 GoTo 410
+390 Print: Print "You have slain the "; m$; "."
+400 sc = sc + (100 * m)
+410 If Rnd > .4 Then 590
+420 Print: Print "You have found a chest."
+430 Print: Print "Who knows what it might contain. It"
+440 Print "could have gold and treasures, or"
+450 Print "perhaps a curse. It might even contain"
+460 Print "some food to boost your energy..."
+470 Print: Print "Do you want to open it";
+480 c$ = "": Input c$
+490 If c$ = "y" Then 510
+500 If c$ = "n" Then 580
+501 GoTo 480
+510 f = 0: ch = 0: ch = Int(Rnd * 10 + 1)
+520 If ch = 5 Or ch = 10 Then f = 1
+530 If ch = 2 Or ch = 7 Then f = 2
+540 If ch = 3 Then f = 3
+550 If f = 1 Then Print: Print "You have found some food.": h = h + 10: If h > 100 Then h = 100
+560 If f = 2 Then Print: Print "You found treasure!": sc = sc + 500 * Int(Rnd * 4 + 1)
+570 If f = 3 Then Print: Print "You have disturbed a curse...Aaaugh!"
+571 If f = 3 Then h = h - Int(Rnd * 5 + 5)
+572 If h <= 0 Then 1400
+580 If c$ = "y" And f = 0 Then Print: Print "The chest is completely empty."
+590 If Rnd > .1 Then 700
+600 Print: Print "You hear a voice. You look around to"
+610 Print "see who it is. You look down, to find a"
+620 Print "gnome. The gnome, who barely is the"
+630 Print "height of your leg up to the knee, says:"
+640 Print Chr$(34); "I can assist you on your adventure. I"
+650 Print "can point out the correct tunnel through"
+660 Print "which you can continue finding the exit."
+670 l = l + Int(Rnd * 2 + 2): If l > 20 Then l = 20
+680 Print Chr$(34); "May you have a safe journey."; Chr$(34)
+690 Print: Print "And with that he disappears into the"
+691 Print "darkness."
+700 Print: Print "You have the choice of whether to"
+710 Print "proceed cautiously or to run."
+711 Print "(P or R)";
+720 c$ = "": Input c$
+730 If c$ = "p" Then 750
+740 If c$ <> "r" Then 720
+750 If c$ = "p" Then Print: Print "You walk cautiously into the tunnel..."
+760 If c$ = "r" Then Print: Print "You dash through the tunnel..."
+770 If c$ = "p" Or (c$ = "r" And Rnd > .15) Then 790
+780 Print "and cut yourself on the stalactites.": h = h - 2: If h <= 0 Then 1400
+790 If c$ = "p" Then l = l + 1
+800 If c$ = "r" Then l = l + Int(Rnd * 2 + 2)
+810 If l >= 20 Then 830
+820 _Delay 2: GoTo 30
+830 Print: Print "Well done!"
+840 Print: Print "You have exited cavern"; cv; "safely."
+841 Print: Print "You have a score of"; sc
+850 If cv = 10 Then 900
+860 Print: Print "You get 200 points for successfully"
+870 Print "exiting the cavern. Now onto cavern"; cv + 1; "!."
+880 cv = cv + 1: sc = sc + 200: l = 1
+890 _Delay 5: GoTo 30
+900 _Delay 5
+901 Color , 2: Cls: Print: Print: Print "You have made it out of the labyrinth"
+910 Print "of tunnels and caverns. You look around"
+920 Print "the open plain and quietly congratulate"
+930 Print "yourself..."
+940 _Delay 4
+950 Print: Print: Print "Suddenly the sky turns as black as ink."
+960 Color , 0: Cls
+970 Print "What was nice pleasant weather, typical"
+980 Print "of late spring, turned into a dry storm."
+990 Color , 15: Cls
+991 _Delay 2
+1000 Color , 0: Cls
+1010 _Delay 1
+1020 Color , 15: Cls
+1021 _Delay 1
+1030 Color , 0: Cls
+1040 _Delay 1
+1050 Print: Print "A face appears in the sky. You rub your"
+1060 Print "eyes and peer at it. It is Kaeiri. He"
+1070 Print "says in a booming tone:"
+1080 _Delay 2
+1090 Print: Print Chr$(34); "So, my labyrinth was not as impossible"
+1100 Print "to escape from as I thought. I seem to"
+1110 Print "have underestimated you. I give my"
+1120 Print "congratulations..."; Chr$(34)
+1130 Print
+1140 _Delay 4
+1150 Color , 15: Cls
+1160 _Delay 1
+1170 Print "You are struck by a lightning bolt!"
+1180 Color , 0: Cls
+1190 Print "You black out and fall to the ground..."
+1200 _Delay 4
+1210 Color 8, 7: Cls
+1220 _Delay 2
+1230 Print: Print "You come to. It is now overcast, and"
+1240 Print "you still feel Kaeiri's presence."
+1250 _Delay 2
+1260 Print: Print "You look up and find that there is a"
+1270 Print "huge, foreboding castle in the middle"
+1280 Print "of the plain."
+1290 Print: Print
+1300 Print "Kaeiri's voice booms: "; Chr$(34); "the castle will"
+1310 Print "keep you occupied while I carry out my"
+1320 Print "plans to dominate the world!!!!!": _Delay 1: Print
+1330 Print "HA HA HA HA HA HA HA HA HA HA HA HA!!"; Chr$(34)
+1340 _Delay 4
+1350 Print: Print "In an instant, you find yourself in a"
+1360 Print "small, dark room..."
+1370 _Delay 2
+1380 Print: Print: Print "To be continued..."
+1390 GoTo 1390
+1400 _Delay 2
+1410 Color , 0: Cls: Print: Print "Everything turns black..."
+1420 _Delay 4
+1430 Cls: Color 4: Print: Print: Print: Print: Print: Print: Print: Print: Print: Print: Print
+1440 Print "You have died."
+1450 Print: Print: Print
+1460 _Delay 4
+1470 Print "Kaeiri will now accomplish his mission."
+1480 Print
+1490 _Delay 4
+1500 Print "Do you wish to play again";
+1510 c$ = "": Input c$
+1520 If c$ = "y" Then 10
+1530 If c$ = "n" Then End
+1540 GoTo 1510
+1550 Color 0, 12: Cls
+1560 Print Tab(10); "An R. Vonk Production": Print
+1570 _Delay 2: Print: Print
+1580 Print Tab(2); " ±±±  ±±±±  ±  ±  ±±±±  ±±±±  ±  ±"
+1590 Print Tab(2); "±     ±  ±  ±  ±  ±     ±  ±  ±± ±"
+1600 Print Tab(2); "±     ±  ±  ±  ±  ±     ±  ±  ± ±±"
+1610 Print Tab(2); "±     ±±±±  ±  ±  ±±±±  ±±±   ± ±±"
+1620 Print Tab(2); "±     ±  ±  ±  ±  ±     ±  ±  ±  ±"
+1630 Print Tab(2); "±     ±  ±  ±  ±  ±     ±  ±  ±  ±"
+1640 Print Tab(2); " ±±±  ±  ±   ±±   ±±±±  ±  ±  ±  ±"
+1641 Print: Print Tab(16); "(c) 2000"
+1650 _Delay 2: Print: Print
+1652 Print Tab(7); "QB64 port by Kevin Martell"
+1653 Print
+1660 _Delay 2
+1670 Print: Print "Do you want to read the story";
+1680 Input c$
+1690 If c$ = "n" Then 10
+1700 If c$ <> "y" Then 1680
+1710 Color , 6: Cls: Color 14
+1720 Print Chr$(34); "Don't be silly, Jimmy. You know there"
+1730 Print Tab(5); "are no such things as ghosts."
+1740 Print: Print "No matter what Mum and Dad said, and no"
+1750 Print "matter how much they tried to convince"
+1760 Print "you that you were imagining things, you"
+1770 Print "undeniably believed in ghosts, wizards"
+1780 Print "and trolls."
+1790 Print
+1810 Print "You, like any other rebellious teenager,"
+1820 Print "normally stay up late, watching TV."
+1830 _Delay 6
+1840 Print: Print "One night, you fell asleep while"
+1850 Print "watching a show called 'The World's Best"
+1860 Print "Magicians'. Before you nodded off, you"
+1870 Print "noted one, by the name of Leo Kaeiri."
+1880 Print "Kaeiri was, you thought, the 'coolest'"
+1890 Print "magician ever."
+1900 _Delay 6
+1910 Print: Print "You suddenly wake up...to find that you"
+1920 Print "left the TV on. The magicians' show was"
+1930 Print "just concluding."
+1940 Print: Print
+1950 _Delay 4
+1960 Print "As you reached for the ON/OFF button on"
+1970 Print "the TV, you felt this great surge of"
+1980 Print "electricity, and then, a face appears"
+1990 Print "on the screen. You recognise it"
+2000 Print "immediately--Kaieri."
+2010 _Delay 6
+2020 Print: Print "Kaeiri speaks: "; Chr$(34); "YOU HAVE AROUSED THE"
+2030 Print "WRATH OF THE GREAT KAEIRI! NO MORTAL"
+2040 Print "BEING WOULD DARE TO DISTURB ME!"
+2050 Print: Print "...and before you could say 'Alakazam',"
+2060 Print "you found yourself in a dank cavern."
+2070 _Delay 6
+2080 Print: Print "Kaeiri appears out of nowhere."
+2090 _Delay 2
+2100 Print: Print Chr$(34); "This is my cavern labyrinth. No-one has"
+2110 Print "escaped from it before. Which is why"
+2120 Print "you are here. You are the only mortal"
+2130 Print "being I know of who believes in the"
+2140 Print "in the paranormal, and therefore the"
+2150 Print "only mortal who can defeat me."; Chr$(34)
+2160 _Delay 4
+2170 Print: Print "You ask: "; Chr$(34); "What are you gonna do?"; Chr$(34)
+2180 _Delay 2
+2190 Print: Print Chr$(34); "I intend to rule the world with my"
+2200 Print "immense power. So immense, that there"
+2210 Print "will be no-one who can stop me."; Chr$(34)
+2220 _Delay 3
+2230 Print: Print "HA HA HA HA HA HA HA!!!!!!"
+2240 _Delay 2
+2250 Print: Print "And with that, he disappeared."
+2260 _Delay 3
+2270 Cls
+2280 Print: Print "The cavern labyrinth contains 10 caverns"
+2290 Print "with 20 sections in each one. Throughout"
+2300 Print "the journey, you will come across many"
+2310 Print "things, such as monsters, treasure"
+2320 Print "chests, and gnomes."
+2330 Print: Print "There are monsters galore in the"
+2340 Print "labyrinth. You can choose to fight"
+2350 Print "them, or retreat. Sometimes, when you"
+2360 Print "do try to run, the monsters will stop"
+2370 Print "you."
+2380 Print
+2390 Print "You may be lucky to find a treasure"
+2400 Print "chest in a section of the cavern, and"
+2410 Print "it may contain either a piece of food,"
+2420 Print "treasure or a curse. You are given a"
+2430 Print "choice of whether or not you want to"
+2440 Print "open a chest."
+2450 Input "<Enter> to continue..."; k$
+2460 Cls
+2470 Print: Print "Small gnomes inhabit the caves of the"
+2480 Print "labyrinth. Luckily for you, they are"
+2490 Print "very friendly and will help you on your"
+2500 Print "journey."
+2510 Print: Print "Your health begins at 100%, and goes"
+2520 Print "down if you lose a fight, or if you"
+2530 Print "fall down a tunnel, or if you run and"
+2540 Print "cut yourself on a stalactite."
+2550 Print: Print
+2560 Print "Good luck on your quest."
+2570 Input "<Enter> to continue..."; k$
+2580 GoTo 10
+
